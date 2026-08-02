@@ -1,9 +1,11 @@
 pipeline {
-
     agent any
 
-    stages {
+    tools {
+        nodejs 'NodeJS'
+    }
 
+    stages {
         stage('Checkout Code') {
             steps {
                 echo 'Checking out code'
@@ -11,30 +13,30 @@ pipeline {
             }
         }
 
+        stage('Check Node') {
+            steps {
+                sh 'which node'
+                sh 'node -v'
+                sh 'which npm'
+                sh 'npm -v'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                echo 'Installing npm dependencies'
                 sh 'npm install'
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-                echo 'Installing Playwright browsers'
                 sh 'npx playwright install --with-deps'
             }
         }
 
         stage('Run Playwright Tests') {
             steps {
-                echo 'Running Playwright tests'
                 sh 'npx playwright test'
-            }
-        }
-
-        stage('Publish Report') {
-            steps {
-                echo 'Publishing Playwright report'
             }
         }
     }
