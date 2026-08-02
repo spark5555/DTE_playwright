@@ -29,10 +29,11 @@ pipeline {
         }
 
         stage('Install Playwright Browsers') {
-            steps {
-                sh 'npx playwright install'
-            }
-        }
+    steps {
+        echo 'Installing Playwright browsers'
+        sh 'npx playwright install'
+    }
+}
 
         stage('Run Playwright Tests') {
             steps {
